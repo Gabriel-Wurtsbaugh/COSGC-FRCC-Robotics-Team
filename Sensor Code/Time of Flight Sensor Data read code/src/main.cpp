@@ -87,12 +87,5 @@ void loop()
   
   /**/
   //End of Array Writing Process
-
-  
-
-
-
-  
-
   delay(5); //Small delay between polling
 }
