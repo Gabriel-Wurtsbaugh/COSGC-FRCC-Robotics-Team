@@ -65,7 +65,7 @@ void loop()
     }
   }
 
-/**/
+/*
       //So that I can understand what the call values in the array look like
       Serial.println("Monitoring Array");
       for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
@@ -85,7 +85,7 @@ void loop()
       Serial.println();
     
   
-  /**/
+  */
   //End of Array Writing Process
   delay(5); //Small delay between polling
 }
