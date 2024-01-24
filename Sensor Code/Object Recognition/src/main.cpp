@@ -34,12 +34,6 @@ void loop() {
 
 }
 
-
-
-
-
-
-
 // put function definitions here:
 //Function to intitiat ToF Sensor Settings so I can Clean my code a bit and make it easier to copy and paste
 void sensorIntitiation() {
