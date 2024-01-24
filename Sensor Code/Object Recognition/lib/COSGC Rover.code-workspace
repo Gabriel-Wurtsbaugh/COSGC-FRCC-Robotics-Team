@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Esp32 Cam and TOF sensor test project",
+			"path": "../../Esp32 Cam and TOF sensor test project"
+		},
+		{
+			"name": "Time of Flight Sensor Data read code",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
