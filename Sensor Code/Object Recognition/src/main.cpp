@@ -26,12 +26,23 @@ void loop() {
   // put your main code here, to run repeatedly:
   delay(1000);
 
-
+  //Detect if the sensor has data that can be collected and checks the data for any objects within range. 
   if (dataProcessed() == true) 
   {
+    if (objectDetected() == true)
+    {
+      {
+        
 
+
+
+
+
+
+
+      }
+    }
   }
-
 
 }
 
