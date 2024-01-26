@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <SparkFun_VL53L5CX_Library.h>
 #include <Wire.h>
+#include <cmath>
 
 //Data Structures
 SparkFun_VL53L5CX myImager;
