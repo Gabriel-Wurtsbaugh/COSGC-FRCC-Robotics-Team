@@ -217,48 +217,95 @@ Calculates the height of a detected object and outputs the heights
   //Measures the height of an object taller than the wrover.-----------------------------------------------
   if (smol == 1)
   {
-      //Gets distance for D1
-      distance1 = getDistance(); 
+    //Gets distance for D1
+    distance1 = getDistance(); 
 
-      //Calculates theta 1
-      theta1 = atan(height1/distance1); 
+    //Calculates theta 1
+    theta1 = atan(height1/distance1); 
 
-      //Moves the pitch Servo to theta one of the x-axis
-      pitchServo.write(90 - theta1); 
+    //Moves the pitch Servo to theta one of the x-axis
+    pitchServo.write(90 - theta1); 
 
-      distance2 = getDistance();
+    distance2 = getDistance();
 
-      pitchServo.write(90); //Move servo back to neutral
+    pitchServo.write(90); //Move servo back to neutral
 
-      //Variables needed to find top of object
-      int current = 0;
-      int previous = distance1;
+    //Variables needed to find top of object
+    int current = 0;
+    int previous = distance1;
 
-      //Finds the top of the object
-      for(int i = 90; i <= 180; ++i)
+    //Finds the top of the object
+    for(int i = 90; i <= 180; ++i)
+      {
+        delay(250);
+        int current = getDistance();
+
+        //Checks to see if a change in distance was more than 10 cm
+        if ((current-previous) < 100)
         {
-          delay(250);
-          int current = getDistance();
-
-          //Checks to see if a change in distance was more than 10 cm
-          if ((current-previous) < 100)
-          {
-            previous = current;
-          }
-          else {
-            //Found the top so read previous values
-            theta2 = pitchServo.read()-1;
-            distance3 = previous;
-            break;
-          }
-
-          //Moves servo to next increment
-          pitchServo.write(i);
+          previous = current;
+        }
+        else 
+        {
+          //Found the top so read previous values
+          theta2 = pitchServo.read()-1;
+          distance3 = previous;
+          break;
         }
 
+        //Moves servo to next increment
+        pitchServo.write(i);
+      }
 
-      height3 = distance3*sin(theta2);
+    height3 = distance3*sin(theta2);
 
-      heightTotal = height2 + height3;
+    heightTotal = height2 + height3;
   } //End of taller object height calculation.
+  else
+  {
+    pitchServo.write(45); //Move servo back to neutral
+
+    //Variables needed to find top of object
+    int current = 0;
+    int previous = getDistance();
+    
+    //Finds the top of the object
+    for(int i = 45; i <= 90; ++i)
+    {
+      delay(250);
+      int current = getDistance();
+
+      //Checks to see if a change in distance was more than 10 cm
+      if ((current-previous) < 100)
+      {
+        previous = current;
+      }
+      else 
+      {
+        //Found the top so read previous values
+        theta1 = pitchServo.read()-1;
+        distance1 = previous;
+        break;
+      }
+
+      //Moves servo to next increment
+      pitchServo.write(i);
+    }
+
+    distance2 = distance1*cos(theta1);
+
+    theta2 = atan(height1/distance2);
+
+    pitchServo.write(90-theta2);
+
+    distance3 = getDistance();
+
+    height2 = distance2*tan(theta2);
+
+    height3 = distance1*sin(theta1);
+
+    heightTotal = height2-height3;
+  }
+
+  return heightTotal;
 }
