@@ -13,15 +13,15 @@ Servo rotationalServo; //Creates servo objects
 Servo pitchServo;
 
 //ToF Servo Assembly Variables
-int rotServoPin = 0;
-int pitchServoPin = 18;
+int rotServoPin = 4;
+int pitchServoPin = 5;
 
 
 //Universal Variables
 int imageResolution = 0; //Used to pretty print output
 int imageWidth = 0; //Used to pretty print output
-int minDistance = 300; //Set nearest distance an object can get to the sensor (mm)
-int height1 = 100; //Know height of the ToF sensor off the ground on a flat plane (mm)
+int minDistance = 500; //Set nearest distance an object can get to the sensor (mm)
+int height1 =80; //Know height of the ToF sensor off the ground on a flat plane (mm)
 
 
 // put function declarations here:
@@ -41,9 +41,12 @@ void setup() {
 
   //Sets up servo objects to be used in the rest of the code
   rotationalServo.setPeriodHertz(50);
+  
   pitchServo.setPeriodHertz(50);
   rotationalServo.attach(rotServoPin,500,2400);
   pitchServo.attach(pitchServoPin,500,2400);
+
+  rotationalServo.write(90);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -60,7 +63,12 @@ void loop() {
   //Detect if the sensor has data that can be collected and checks the data for any objects within range. 
   if (dataProcessed() == true) 
   {
+    Serial.println("Data Ready!");
+
+    delay(1000);
+
     //Runs objectDetection algorithm
+    Serial.println("Running Object detection");
     objectDetection(&smol, &detection);
 
     if (detection == true)
@@ -141,6 +149,8 @@ to check if the object is taller than or shorter than the rover.
     {
       if (measurementData.distance_mm[x+y] < minDistance)
       {
+        Serial.println("Object Detected!");
+
         *detection = true; //returns true if there is an object within minimum distance.
       } else {return 0;} //quits out the function if no object is detected
     }
@@ -164,6 +174,8 @@ to check if the object is taller than or shorter than the rover.
       if (ave <= minDistance)
       {
         *smol = 1;
+        Serial.println("Smol= ");
+        Serial.print(*smol);
       }
     }else {return 0;}
   }
@@ -182,6 +194,9 @@ int getDistance() {
     }
 
   x = x/4; //Gets the average
+
+  Serial.print("Distance =");
+  Serial.println(x);
 
   return x;
 }
@@ -220,13 +235,24 @@ Calculates the height of a detected object and outputs the heights
     //Gets distance for D1
     distance1 = getDistance(); 
 
+    Serial.print("Distance1= ");
+    Serial.println(distance1);
+    delay(500);
+
     //Calculates theta 1
-    theta1 = atan(height1/distance1); 
+    theta1 = atan(height1/distance1);
+    Serial.print("theta1= ");
+    Serial.println(theta1);
+    delay(500); 
 
     //Moves the pitch Servo to theta one of the x-axis
     pitchServo.write(90 - theta1); 
 
     distance2 = getDistance();
+    Serial.print("distance2= ");
+    Serial.println(distance2);
+    delay(500); 
+
 
     pitchServo.write(90); //Move servo back to neutral
 
@@ -235,7 +261,7 @@ Calculates the height of a detected object and outputs the heights
     int previous = distance1;
 
     //Finds the top of the object
-    for(int i = 90; i <= 180; ++i)
+    for(int i = 0; i <= 90; ++i)
       {
         delay(250);
         int current = getDistance();
@@ -250,16 +276,32 @@ Calculates the height of a detected object and outputs the heights
           //Found the top so read previous values
           theta2 = pitchServo.read()-1;
           distance3 = previous;
+          Serial.print("distance3= ");
+          Serial.println(distance3);
+          delay(500); 
+
+          
           break;
         }
 
         //Moves servo to next increment
+        Serial.println("Increment Servo....");
+        delay(1000);
         pitchServo.write(i);
+        Serial.println(i);
       }
 
     height3 = distance3*sin(theta2);
+    Serial.print("Height3= ");
+    Serial.println(height3);
+    delay(500); 
 
+    
     heightTotal = height2 + height3;
+    Serial.print("heightTotal= ");
+    Serial.println(heightTotal);
+    delay(500); 
+
   } //End of taller object height calculation.
   else
   {
@@ -270,7 +312,7 @@ Calculates the height of a detected object and outputs the heights
     int previous = getDistance();
     
     //Finds the top of the object
-    for(int i = 45; i <= 90; ++i)
+    for(int i = 90; i <= 135; ++i)
     {
       delay(250);
       int current = getDistance();
@@ -289,7 +331,10 @@ Calculates the height of a detected object and outputs the heights
       }
 
       //Moves servo to next increment
+      Serial.println("Increment Servo....");
+      delay(1000);
       pitchServo.write(i);
+      Serial.println(i);
     }
 
     distance2 = distance1*cos(theta1);
