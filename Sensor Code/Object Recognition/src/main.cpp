@@ -20,7 +20,7 @@ int pitchServoPin = 5;
 //Universal Variables
 int imageResolution = 0; //Used to pretty print output
 int imageWidth = 0; //Used to pretty print output
-int minDistance = 500; //Set nearest distance an object can get to the sensor (mm)
+int minDistance = 150; //Set nearest distance an object can get to the sensor (mm)
 int height1 =80; //Know height of the ToF sensor off the ground on a flat plane (mm)
 
 
@@ -73,7 +73,10 @@ void loop() {
 
     if (detection == true)
     {
-      heightCalculator(smol);
+      int x = heightCalculator(smol);
+
+      Serial.println("Height= ");
+      Serial.println(x);
     }
   }
 
@@ -152,6 +155,28 @@ to check if the object is taller than or shorter than the rover.
         Serial.println("Object Detected!");
 
         *detection = true; //returns true if there is an object within minimum distance.
+        
+        //Output snap shot of the sensor when an object is detected
+        if (myImager.isDataReady() == true)
+        {
+          if (myImager.getRangingData(&measurementData)) //Read distance data into array
+          {
+            //The ST library returns the data transposed from zone mapping shown in datasheet
+            //Pretty-print data with increasing y, decreasing x to reflect reality
+            for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
+            {
+        
+              for (int x = imageWidth - 1 ; x >= 0 ; x--)
+              {
+                Serial.print("\t");
+                Serial.print(measurementData.distance_mm[x + y]);
+              }
+              Serial.println();
+            }
+            Serial.println();
+          }
+        }
+
       } else {return 0;} //quits out the function if no object is detected
     }
 
@@ -231,7 +256,8 @@ Calculates the height of a detected object and outputs the heights
   
   //Measures the height of an object taller than the wrover.-----------------------------------------------
   if (smol == 1)
-  {
+  { 
+    Serial.println("Taller");   
     //Gets distance for D1
     distance1 = getDistance(); 
 
@@ -263,6 +289,27 @@ Calculates the height of a detected object and outputs the heights
     //Finds the top of the object
     for(int i = 0; i <= 90; ++i)
       {
+//Snapshot of sensor values
+if (myImager.isDataReady() == true)
+  {
+    if (myImager.getRangingData(&measurementData)) //Read distance data into array
+    {
+      //The ST library returns the data transposed from zone mapping shown in datasheet
+      //Pretty-print data with increasing y, decreasing x to reflect reality
+      for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
+      {
+        
+        for (int x = imageWidth - 1 ; x >= 0 ; x--)
+        {
+          Serial.print("\t");
+          Serial.print(measurementData.distance_mm[x + y]);
+        }
+        Serial.println();
+      }
+      Serial.println();
+    }
+  }
+    
         delay(250);
         int current = getDistance();
 
@@ -303,8 +350,10 @@ Calculates the height of a detected object and outputs the heights
     delay(500); 
 
   } //End of taller object height calculation.
-  else
+  else //Find height of shorter object
   {
+Serial.println("Shorter");
+
     pitchServo.write(45); //Move servo back to neutral
 
     //Variables needed to find top of object
@@ -314,6 +363,26 @@ Calculates the height of a detected object and outputs the heights
     //Finds the top of the object
     for(int i = 90; i <= 135; ++i)
     {
+//Snapshot of sensor values
+if (myImager.isDataReady() == true)
+  {
+    if (myImager.getRangingData(&measurementData)) //Read distance data into array
+    {
+      //The ST library returns the data transposed from zone mapping shown in datasheet
+      //Pretty-print data with increasing y, decreasing x to reflect reality
+      for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
+      {
+        
+        for (int x = imageWidth - 1 ; x >= 0 ; x--)
+        {
+          Serial.print("\t");
+          Serial.print(measurementData.distance_mm[x + y]);
+        }
+        Serial.println();
+      }
+      Serial.println();
+    }
+  }
       delay(250);
       int current = getDistance();
 
