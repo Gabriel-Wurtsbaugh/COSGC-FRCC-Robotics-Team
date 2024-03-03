@@ -21,7 +21,7 @@ int pitchServoPin = 5;
 int imageResolution = 0; //Used to pretty print output
 int imageWidth = 0; //Used to pretty print output
 int minDistance = 150; //Set nearest distance an object can get to the sensor (mm)
-int height1 =80; //Know height of the ToF sensor off the ground on a flat plane (mm)
+int height1 =128; //Know height of the ToF sensor off the ground on a flat plane (mm)
 
 
 // put function declarations here:
@@ -236,8 +236,7 @@ Calculates the height of a detected object and outputs the heights
 |
 |
 */
-
-
+ 
   //All of the variable nesscary for height calculations
   //All values in mm
   //Distance Variables
