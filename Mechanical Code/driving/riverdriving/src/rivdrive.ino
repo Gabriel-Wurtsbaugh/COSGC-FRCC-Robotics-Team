@@ -32,8 +32,8 @@ void loop () {
 Serial.println("Preparing to move");
 Forward(TimeDefault, straight_A, straight_B);
 Stop(Time90);
-Backward(TimeDefault, straight_A, Straight_B);
-Stop (Time90);
+Reverse(TimeDefault, straight_A, straight_B);
+Stop(Time90);
 
 }
 
