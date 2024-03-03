@@ -1,5 +1,12 @@
+#include <Arduino.h>
+void Forward(int Duration, int pulsewidth_A, int pulsewidth_B);
+void Reverse(int Duration, int pulsewidth_A, int pulsewidth_B);
+void Stop(int Duration);
+void RotateRight(int Duration, int pulsewidth_A, int pulsewidth_B);
+void RotateLeft(int Duration, int pulsewidth_A, int pulsewidth_B);
+
 //Side A (right)
-int ENA_PIN = 27;//speed
+int ENA_PIN = 27; //speed
 int IN1_PIN = 12; //direction
 int IN2_PIN = 14; //direction
 
