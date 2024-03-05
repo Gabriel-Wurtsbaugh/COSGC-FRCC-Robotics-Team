@@ -1,11 +1,12 @@
 //basic driving code that I will integrate with sensors shortly, still troubleshooting my circuit 
 
+//these make it so visual studio code doesn't give me 5 billion errors 
 #include <Arduino.h>
-void Forward(int Duration, int pulsewidth_A, int pulsewidth_B);
-void Reverse(int Duration, int pulsewidth_A, int pulsewidth_B);
+void Forward(int Duration);
+void Reverse(int Duration);
 void Stop(int Duration);
-void RotateRight(int Duration, int pulsewidth_A, int pulsewidth_B);
-void RotateLeft(int Duration, int pulsewidth_A, int pulsewidth_B);
+void RotateRight(int Duration);
+void RotateLeft(int Duration);
 
 //Side A (right)
 int ENA_PIN = 27; //speed
