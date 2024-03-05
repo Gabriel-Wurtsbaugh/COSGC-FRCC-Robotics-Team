@@ -1,3 +1,5 @@
+//basic driving code that I will integrate with sensors shortly, still troubleshooting my circuit 
+
 #include <Arduino.h>
 void Forward(int Duration, int pulsewidth_A, int pulsewidth_B);
 void Reverse(int Duration, int pulsewidth_A, int pulsewidth_B);
@@ -15,14 +17,9 @@ int ENB_PIN = 35; //speed
 int IN3_PIN = 33; //direction
 int IN4_PIN = 32; //direction
 
-//make it go straight. idk what the biggest value is so i'm just putting 255 for now
-//will require testing, making these so values are easy to adjust
+//make it go straight
 int straight_A = 255;
 int straight_B = 255;
-
-//times for testing
-int TimeDefault = 4000;
-int Time90 = 1300;
 
 void setup() {
 // initialize pins as outputs
@@ -36,18 +33,22 @@ pinMode(IN4_PIN, OUTPUT);
 
 //loop for testing
 void loop () {
-Serial.println("Preparing to move");
-Forward(TimeDefault, straight_A, straight_B);
-Stop(Time90);
-Reverse(TimeDefault, straight_A, straight_B);
-Stop(Time90);
+Serial.println("Vroom vroom");
+Forward(4000);
+Stop(1300);
+Reverse(4000);
+Stop(1300);
+RotateLeft(4000);
+Stop(1300);
+RotateRight(4000);
+Serial.println("Hopefully I did the thing");
+Stop(5000);
 
 }
 
-void Forward(int Duration, int pulsewidth_A, int pulsewidth_B)
+void Forward(int Duration)
 {
-//Function to drive forward for amount of time Duration, which is argument passed
-//to function. Drives wheels using parameters pulsewidth_a and pulsewidth_b.
+//Function to drive forward for amount of time Duration
 
 Serial.print("Forward for ");
 Serial.print(Duration/1000);
@@ -58,17 +59,16 @@ digitalWrite(IN2_PIN, LOW);
 //Side B spins clockwise
 digitalWrite(IN3_PIN, HIGH);
 digitalWrite(IN4_PIN, LOW);
-//idek honestly something something go forward
-analogWrite(ENA_PIN, pulsewidth_A);
-analogWrite(ENB_PIN, pulsewidth_B);
+//pwm yippee
+analogWrite(ENA_PIN, straight_A);
+analogWrite(ENB_PIN, straight_B);
 delay(Duration);
 
 }
 
-void Reverse(int Duration, int pulsewidth_A, int pulsewidth_B)
+void Reverse(int Duration)
 {
-//Function to drive reverse for amount of time Duration, which is argument passed
-//to function. Drives wheels using parameters pulsewidth_a and pulsewidth_b.
+//Function to drive reverse for amount of time Duration
 
 Serial.print("Reverse for ");
 Serial.print(Duration/1000);
@@ -79,9 +79,9 @@ digitalWrite(IN2_PIN, HIGH);
 //Side B spins counterclockwise
 digitalWrite(IN3_PIN, LOW);
 digitalWrite(IN4_PIN, HIGH);
-//screams into the darkness
-analogWrite(ENA_PIN, pulsewidth_A);
-analogWrite(ENB_PIN, pulsewidth_B);
+//pwm yippee
+analogWrite(ENA_PIN, straight_A);
+analogWrite(ENB_PIN, straight_B);
 delay(Duration);
 
 }
@@ -98,10 +98,9 @@ delay(Duration);
 
 }
 
-void RotateRight(int Duration, int pulsewidth_A, int pulsewidth_B)
+void RotateRight(int Duration)
 {
-//Function to drive right rotation for amount of time Duration, which is argument passed
-//to function. Drives wheels using parameters pulsewidth_a and pulsewidth_b.
+//Function to drive right rotation for amount of time Duration
 
 Serial.print("RotateRight for ");
 Serial.print(Duration/1000);
@@ -112,17 +111,16 @@ digitalWrite(IN2_PIN, HIGH);
 //Side B spins clockwise
 digitalWrite(IN3_PIN, HIGH);
 digitalWrite(IN4_PIN, LOW);
-//screams into the darkness
-analogWrite(ENA_PIN, pulsewidth_A);
-analogWrite(ENB_PIN, pulsewidth_B);
+//pwm yippee
+analogWrite(ENA_PIN, straight_A);
+analogWrite(ENB_PIN, straight_B);
 delay(Duration);
 
 }
 
-void RotateLeft(int Duration, int pulsewidth_A, int pulsewidth_B)
+void RotateLeft(int Duration)
 {
-//Function to drive right rotation for amount of time Duration, which is argument passed
-//to function. Drives wheels using parameters pulsewidth_a and pulsewidth_b.
+//Function to drive left rotation for amount of time Duration
 
 Serial.print("RotateLeft for ");
 Serial.print(Duration/1000);
@@ -133,9 +131,9 @@ digitalWrite(IN2_PIN, LOW);
 //Side B spins counterclockwise
 digitalWrite(IN3_PIN, LOW);
 digitalWrite(IN4_PIN, HIGH);
-//screams into the darkness
-analogWrite(ENA_PIN, pulsewidth_A);
-analogWrite(ENB_PIN, pulsewidth_B);
+//pwm yippee
+analogWrite(ENA_PIN, straight_A);
+analogWrite(ENB_PIN, straight_B);
 delay(Duration);
 
 }
