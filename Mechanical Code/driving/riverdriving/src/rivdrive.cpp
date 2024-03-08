@@ -30,6 +30,8 @@ pinMode(IN2_PIN, OUTPUT);
 pinMode(ENB_PIN, OUTPUT);
 pinMode(IN3_PIN, OUTPUT);
 pinMode(IN4_PIN, OUTPUT);
+//hiiiii helloooooo
+Serial.begin(115200);
 }
 
 //loop for testing
@@ -46,6 +48,30 @@ Serial.println("Hopefully I did the thing");
 Stop(5000);
 
 }
+
+//copy pasted this bad boy
+void loop () {
+  IRsensorValue = analogRead(IRsensorPin);
+  IRsensorVoltage = 5.0*(IRsensorValue/1023.);
+
+  if (IRsensorVoltage < ObjectDetected)
+  {
+    Serial.print("IR Voltage is ");
+    Serial.println(IRsensorVoltage);
+    Serial.println("No object detected so driving forward.");
+    Forward(4000)
+  }
+else
+{
+   Serial.print("IR Voltage is ");
+   Serial.println(IRsensorVoltage);
+   Serial.println("Object detected so turning.");
+   Stop(2000);
+   RotateRight(1300)
+
+}
+}
+
 
 void Forward(int Duration)
 {
