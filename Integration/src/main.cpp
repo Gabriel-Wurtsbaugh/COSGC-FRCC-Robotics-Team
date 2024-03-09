@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <NewPing.h>
 #include "NostromoPinsAndGlobals.h"
-#include "../../Sensor Code/Ultrasonic/SGUltrasonic.cpp"
+#include "SGUltrasonic.cpp"
 
 // put function declarations here:
 int myFunction(int, int);
