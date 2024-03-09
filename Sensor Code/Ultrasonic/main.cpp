@@ -1,6 +1,5 @@
 
 #include <Arduino.h>
-#include <UltrasonicSensor.h>
 #include <NewPing.h>
 
 #define TRIGGER_PIN 13
