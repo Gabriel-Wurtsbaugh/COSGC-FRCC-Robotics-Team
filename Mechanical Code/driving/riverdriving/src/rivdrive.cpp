@@ -18,10 +18,6 @@ int ENB_PIN = 35; //speed
 int IN3_PIN = 33; //direction
 int IN4_PIN = 32; //direction
 
-//time of flight
-int SDA_PIN = 21;
-int SCL_PIN = 22;
-
 //make it go straight
 int straight_A = 255;
 int straight_B = 255;
@@ -35,7 +31,7 @@ pinMode(ENB_PIN, OUTPUT);
 pinMode(IN3_PIN, OUTPUT);
 pinMode(IN4_PIN, OUTPUT);
 //hiiiii helloooooo
-Serial.begin(115200);
+Serial.begin(9600);
 }
 
 //loop for testing
