@@ -1,8 +1,10 @@
+#include <vector>
 #include <Arduino.h>
 #include <SparkFun_VL53L5CX_Library.h>
 #include <Wire.h>
 #include <cmath>
 #include <ESP32Servo.h>
+using namespace std;
 
 
 
@@ -11,6 +13,8 @@ SparkFun_VL53L5CX myImager;
 VL53L5CX_ResultsData measurementData; // Result data class structure, 1356 bytes of RAM, Used to store distances
 Servo rotationalServo; //Creates servo objects
 Servo pitchServo;
+vector<int> detectedObjectVector = {};
+vector<int> correspondingDistanceVector = {};
 
 //ToF Servo Assembly Variables
 int rotServoPin = 4;
@@ -30,6 +34,7 @@ bool dataProcessed();
 int objectDetection(int* smol, bool* detection);
 int heightCalculator(int smol);
 int getDistance();
+void remindTheSensorItExists();
 
 
 void setup() {
@@ -47,6 +52,9 @@ void setup() {
   pitchServo.attach(pitchServoPin,500,2400);
 
   rotationalServo.write(90);
+  pitchServo.write(90);
+
+  Serial.println("Set Servos to 90");
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,6 +67,8 @@ void loop() {
   int smol;
   bool detection;
 
+  //Prime sensor to gather good data
+  remindTheSensorItExists();
 
   //Detect if the sensor has data that can be collected and checks the data for any objects within range. 
   if (dataProcessed() == true) 
@@ -145,7 +155,6 @@ to check if the object is taller than or shorter than the rover.
   *detection = false;
   *smol = 0; //Object as tall or taller than rover if x=1, shorter if x=0
 
-
   for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
   {
     for (int x = imageWidth-1; x >= 0; x--)
@@ -156,6 +165,9 @@ to check if the object is taller than or shorter than the rover.
 
         *detection = true; //returns true if there is an object within minimum distance.
         
+        detectedObjectVector.push_back(x+y);
+        correspondingDistanceVector.push_back(measurementData.distance_mm[x+y]);
+
         //Output snap shot of the sensor when an object is detected
         if (myImager.isDataReady() == true)
         {
@@ -421,4 +433,21 @@ if (myImager.isDataReady() == true)
   }
 
   return heightTotal;
+}
+
+//Flip the sensor upwards to see a close neutral surface to help reset the zone values before taking data
+void remindTheSensorItExists() {
+  delay(100);
+
+  //Cycle Servo up and dwn 3 times
+  for(int i = 0; i <= 3; ++i)
+  {
+    pitchServo.write(90);
+    delay(200);
+    pitchServo.write(0);
+    delay(200);
+  }
+
+  //set back to neutral
+  pitchServo.write(90);
 }
