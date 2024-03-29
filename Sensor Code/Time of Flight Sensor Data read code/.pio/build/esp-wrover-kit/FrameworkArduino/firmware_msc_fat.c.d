@@ -1,3 +1,3 @@
 .pio/build/esp-wrover-kit/FrameworkArduino/firmware_msc_fat.c.o: \
- C:/.platformio/packages/framework-arduinoespressif32/cores/esp32/firmware_msc_fat.c \
- C:/.platformio/packages/framework-arduinoespressif32/cores/esp32/firmware_msc_fat.h
+ C:/Users/gwurt/.platformio/packages/framework-arduinoespressif32/cores/esp32/firmware_msc_fat.c \
+ C:/Users/gwurt/.platformio/packages/framework-arduinoespressif32/cores/esp32/firmware_msc_fat.h
