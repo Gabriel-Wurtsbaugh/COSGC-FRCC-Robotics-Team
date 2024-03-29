@@ -443,9 +443,9 @@ void remindTheSensorItExists() {
   for(int i = 0; i <= 3; ++i)
   {
     pitchServo.write(90);
-    delay(500);
+    delay(200);
     pitchServo.write(0);
-    delay(500);
+    delay(200);
   }
 
   //set back to neutral
