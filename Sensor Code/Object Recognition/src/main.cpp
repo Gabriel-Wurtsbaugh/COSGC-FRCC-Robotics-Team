@@ -67,6 +67,8 @@ void loop() {
   int smol;
   bool detection;
 
+  //Prime sensor to gather good data
+  remindTheSensorItExists();
 
   //Detect if the sensor has data that can be collected and checks the data for any objects within range. 
   if (dataProcessed() == true) 
@@ -435,5 +437,14 @@ if (myImager.isDataReady() == true)
 
 //Flip the sensor upwards to see a close neutral surface to help reset the zone values before taking data
 void remindTheSensorItExists() {
-  
+  delay(100);
+
+  //Cycle Servo up and dwn 3 times
+  for(int i = 0; i <= 3; ++i)
+  {
+    pitchServo.write(90);
+    delay(100);
+    pitchServo.write(180);
+    delay(100);
+  }
 }
