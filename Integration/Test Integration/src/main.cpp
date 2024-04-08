@@ -131,142 +131,92 @@ void loop()
 
 //
 
+
 void cardinalDir(float headingDegrees)
-
 {
-
   String cardinal;
 
   if (headingDegrees > 348.75 || headingDegrees < 11.25)
-
   {
-
     cardinal = " N";
-
   }
 
   else if (headingDegrees > 11.25 && headingDegrees < 33.75)
-
   {
-
     cardinal = " NNE";
-
   }
 
   else if (headingDegrees > 33.75 && headingDegrees < 56.25)
-
   {
-
     cardinal = " NE";
-
   }
 
   else if (headingDegrees > 56.25 && headingDegrees < 78.75)
-
   {
-
     cardinal = " ENE";
-
   }
 
   else if (headingDegrees > 78.75 && headingDegrees < 101.25)
-
   {
-
     cardinal = " E";
-
   }
 
   else if (headingDegrees > 101.25 && headingDegrees < 123.75)
-
   {
-
     cardinal = " ESE";
-
   }
 
   else if (headingDegrees > 123.75 && headingDegrees < 146.25)
-
   {
-
     cardinal = " SE";
-
   }
 
   else if (headingDegrees > 146.25 && headingDegrees < 168.75)
-
   {
-
     cardinal = " SSE";
-
   }
 
   else if (headingDegrees > 168.75 && headingDegrees < 191.25)
-
   {
-
     cardinal = " S";
-
   }
 
   else if (headingDegrees > 191.25 && headingDegrees < 213.75)
-
   {
-
     cardinal = " SSW";
-
   }
 
   else if (headingDegrees > 213.75 && headingDegrees < 236.25)
-
   {
-
     cardinal = " SW";
-
   }
 
   else if (headingDegrees > 236.25 && headingDegrees < 258.75)
-
   {
-
     cardinal = " WSW";
-
   }
 
   else if (headingDegrees > 258.75 && headingDegrees < 281.25)
-
   {
-
     cardinal = " W";
-
   }
 
   else if (headingDegrees > 281.25 && headingDegrees < 303.75)
-
   {
-
     cardinal = " WNW";
-
   }
 
   else if (headingDegrees > 303.75 && headingDegrees < 326.25)
-
   {
-
     cardinal = " NW";
-
   }
 
   else if (headingDegrees > 326.25 && headingDegrees < 348.75)
-
   {
-
     cardinal = " NNW";
-
   }
 
   Serial.println(cardinal);
-
 }
 
 //Function to intitiat ToF Sensor Settings so I can Clean my code a bit and make it easier to copy and paste
