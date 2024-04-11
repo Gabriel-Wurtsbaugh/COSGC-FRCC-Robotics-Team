@@ -68,7 +68,7 @@ void loop() {
 
 
   //Variables
-
+  int direction;
   bool detection;
 
   //Prime sensor to gather good data
@@ -139,6 +139,9 @@ bool dataProcessed() {
 //Checks to see if an object has come within the min detect distance
 int objectDetection(int* direction) {
 
+  //Sets direction to undecided(0)
+  direction = 0;
+
   //Logic for zone 1 & 3
   for(int i = 0; i <= 23; ++i)
   {
@@ -190,7 +193,8 @@ int objectDetection(int* direction) {
 
   if (z1P>z2P>z3P)
   {
-    
+    //Set direction to left
+    direction = 1;
   }
 
 
