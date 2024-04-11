@@ -175,11 +175,12 @@ bool objectDetection()
         if (measurementData.distance_mm[x+y] < 300)
         {
         return true;
-        }         
+        } 
         break;
       }
     }
   }
+  return false;
 }
 
 //Checks to see if an object has come within the min detect distance
