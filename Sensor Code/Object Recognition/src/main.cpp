@@ -140,7 +140,7 @@ bool dataProcessed() {
 int objectDetection(int* direction) {
 
   //Sets direction to undecided(0)
-  direction = 0;
+  *direction = 0;
 
   //Logic for zone 1 & 3
   for(int i = 0; i <= 23; ++i)
@@ -191,13 +191,21 @@ int objectDetection(int* direction) {
   int z2P = (zone2Total/16)*100;
   int z3P = (zone3Total/24)*100;
 
-  if (z1P>z2P>z3P)
+  if (z1P > z2P && z3P)
   {
     //Set direction to left
-    direction = 1;
+    *direction = 1;
   }
-
-
+  else if (z2P> z1P && z3P)
+  {
+    //Set direction to forward
+    *direction = 2;
+  } 
+  else if (z3P> z1P && z2P)
+  {
+    //Set direction to right
+    *direction = 3;
+  }
 } 
 
 
