@@ -37,7 +37,8 @@ int zone3Values[24] = {};
 // put function declarations here:
 void sensorIntitiation();
 bool dataProcessed();
-int objectDetection(int* direction);
+int objectAvoidance(int* direction);
+bool objectDetection();
 void remindTheSensorItExists();
 
 
@@ -83,7 +84,8 @@ void loop() {
 
     //Runs objectDetection algorithm
     Serial.println("Running Object detection");
-    objectDetection(&direction);
+    objectAvoidance(&direction);
+
   }
 
 }
@@ -137,7 +139,7 @@ bool dataProcessed() {
 }
 
 //Checks to see if an object has come within the min detect distance
-int objectDetection(int* direction) {
+int objectAvoidance(int* direction) {
 
   //Sets direction to undecided(0)
   *direction = 0;
@@ -206,6 +208,8 @@ int objectDetection(int* direction) {
     //Set direction to right
     *direction = 3;
   }
+
+  return;
 } 
 
 
