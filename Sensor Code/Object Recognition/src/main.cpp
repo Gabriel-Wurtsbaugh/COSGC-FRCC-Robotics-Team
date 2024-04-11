@@ -81,13 +81,41 @@ void loop() {
     Serial.println("Data Ready!");
 
     delay(1000);
-
     //Runs objectDetection algorithm
     Serial.println("Running Object detection");
-    objectAvoidance(&direction);
+    objectDetection();
+    
+    delay(100);
+    remindTheSensorItExists();
+    delay(100);
+    
+    //If object was detected starts object avoidance
+    if (detection == true)
+    {
+      Serial.println("Object was detected!");
+      Serial.println("Deciding which direction to move...");
+      
+      //Runs objectAvoidance algorithm
+      objectAvoidance(&direction);
 
+      if (direction = 1)
+      {
+        Serial.println("Direction set to left");
+      } 
+      else if (direction = 2)
+      {
+        Serial.println("Direction set to forward");
+      } 
+      else if (direction = 3)
+      {
+        Serial.println("Direction set to right");
+      }
+      else
+      {
+        Serial.println("Direction couldn't be decided upon.");
+      }
+    }
   }
-
 }
 //------------------------------------------------------------------------------------------------------------------------------------------------------------
 
