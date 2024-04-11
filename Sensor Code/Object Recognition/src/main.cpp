@@ -138,6 +138,51 @@ bool dataProcessed() {
   return false;
 }
 
+bool objectDetection()
+{
+  for (int y = 0 ; y <= imageWidth * (imageWidth - 1) ; y += imageWidth)
+      {
+        
+        for (int x = imageWidth - 1 ; x >= 0 ; x--)
+        {
+            //Rejects the values from all of the corner zones when doing general object detection
+            switch (x+y)
+            {
+            case 56:
+              break;
+            case 57:
+              break;
+            case 48:
+              break;
+            case 62:
+              break;
+            case 63:
+              break;
+            case 55:
+              break;
+            case 15:
+              break;
+            case 7:
+              break;
+            case 6:
+              break;
+            case 8:
+              break;
+            case 0:
+              break;
+            case 1:
+              break;
+            default:
+              if (measurementData.distance_mm[x+y] < 300)
+                {
+                  return true;
+                }         
+              break;
+            }
+        }
+      }
+}
+
 //Checks to see if an object has come within the min detect distance
 int objectAvoidance(int* direction) {
 
